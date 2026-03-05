@@ -10,8 +10,6 @@ Sensemaking Scenius is a community of practice exploring collective intelligence
 
 This repo is our shared workspace: a living record of what we've discussed, what we've agreed on, and what we're building next. It combines async deliberation sessions with workshop summaries and community artifacts (proposals, specs, etc.).
 
-**Community:** https://scenius.space
-
 ### Current content
 
 - **[Community Application Brainstorming](https://sensemaking-scenius.github.io/scenius-infra-upgrade/sessions/2026-02-27-sensemaking-scenius-community-application-brainstorming.html)** — async Harmonica session on what to build and how tools fit together
