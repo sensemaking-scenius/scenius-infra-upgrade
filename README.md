@@ -4,11 +4,13 @@ Dashboard and archive for the Sensemaking Scenius community — tracking session
 
 **Live:** https://sensemaking-scenius.github.io/scenius-infra-upgrade/
 
-## What's here
+## About
 
-- **Harmonica sessions** — async structured deliberations, synced automatically via [harmonica-sync](https://github.com/harmonicabot/harmonica-sync)
-- **Workshop summaries** — notes from live calls, added manually as markdown files
-- **Dashboard** — stats, contributor list, emerging consensus, and a combined activity feed
+Sensemaking Scenius is a community of practice exploring collective intelligence, relational technology, and tools for a more intentional internet. Members are building complementary tools — spatial community platforms, knowledge graphs, community dashboards, synchronized listening rooms — and figuring out how they fit together.
+
+This repo is our shared workspace: a living record of what we've discussed, what we've agreed on, and what we're building next. It combines async [Harmonica](https://harmonica.chat) deliberation sessions with summaries from live workshops.
+
+**Community:** https://scenius.space
 
 ## How it works
 
