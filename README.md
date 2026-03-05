@@ -8,22 +8,23 @@ Dashboard and archive for the Sensemaking Scenius community — tracking session
 
 Sensemaking Scenius is a community of practice exploring collective intelligence, relational technology, and tools for a more intentional internet. Members are building complementary tools — spatial community platforms, knowledge graphs, community dashboards, synchronized listening rooms — and figuring out how they fit together.
 
-This repo is our shared workspace: a living record of what we've discussed, what we've agreed on, and what we're building next. It combines async [Harmonica](https://harmonica.chat) deliberation sessions with workshop summaries and community proposals.
+This repo is our shared workspace: a living record of what we've discussed, what we've agreed on, and what we're building next. It combines async [Harmonica](https://harmonica.chat) deliberation sessions with workshop summaries and community artifacts (proposals, specs, etc.).
 
 **Community:** https://scenius.space
 
 ### Current content
 
 - **[Community Application Brainstorming](https://sensemaking-scenius.github.io/scenius-infra-upgrade/sessions/2026-02-27-sensemaking-scenius-community-application-brainstorming/)** — async Harmonica session on what to build and how tools fit together
-- **[Telegram Group Restructuring Proposal](https://sensemaking-scenius.github.io/scenius-infra-upgrade/workshops/2026-02-24-telegram-restructuring-proposal/)** — main group + opt-in subgroups + Drip synthesis channel ([Notion source](https://m4co.notion.site/Telegram-Group-Restructuring-Proposal-31496ae9065580a69dcddf02cd483a45))
+- **[Telegram Group Restructuring Proposal](https://sensemaking-scenius.github.io/scenius-infra-upgrade/artifacts/2026-02-24-telegram-restructuring-proposal/)** — main group + opt-in subgroups + Drip synthesis channel ([Notion source](https://m4co.notion.site/Telegram-Group-Restructuring-Proposal-31496ae9065580a69dcddf02cd483a45))
 - **[Community Platform Integration Workshop](https://sensemaking-scenius.github.io/scenius-infra-upgrade/workshops/2026-03-04-scenius-workshop/)** — Portico, Knowledge Graph, cross-platform integration, public vs private content
 
 ## How it works
 
-Built with Jekyll (GitHub Pages native). Two collections:
+Built with Jekyll (GitHub Pages native). Three collections:
 
 - `_sessions/` — auto-synced from [Harmonica](https://harmonica.chat) every 6 hours via GitHub Actions. When someone participates in a session, the dashboard updates automatically with new responses, participant counts, and summaries.
 - `_workshops/` — manually added markdown summaries from live calls.
+- `_artifacts/` — proposals, specs, and other community documents.
 
 The **consensus block** and **stats** on the main page need manual updates as the project evolves.
 
@@ -55,4 +56,26 @@ keywords:
 ---
 
 Workshop content in markdown...
+```
+
+## Add an artifact
+
+Create a file in `_artifacts/` with this frontmatter:
+
+```yaml
+---
+title: "Artifact Title"
+date: 2026-02-24
+type: artifact
+artifact_type: proposal
+source_url: "https://example.com/original"
+authors:
+  - Name One
+  - Name Two
+keywords:
+  - Topic A
+  - Topic B
+---
+
+Artifact content in markdown...
 ```

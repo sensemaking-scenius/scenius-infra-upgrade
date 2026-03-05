@@ -4,12 +4,21 @@ layout: default
 
 {% assign sessions = site.sessions | sort: 'date' | reverse %}
 {% assign workshops = site.workshops | sort: 'date' | reverse %}
+{% assign artifacts = site.artifacts | sort: 'date' | reverse %}
 {% assign active = sessions | where: "status", "active" %}
 
-{% comment %} Collect all unique participants {% endcomment %}
+{% comment %} Collect all unique participants from workshops and artifacts {% endcomment %}
 {% assign all_participants = "" %}
 {% for w in workshops %}
   {% for p in w.participants_list %}
+    {% unless all_participants contains p %}
+      {% if all_participants != "" %}{% assign all_participants = all_participants | append: "||" %}{% endif %}
+      {% assign all_participants = all_participants | append: p %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+{% for a in artifacts %}
+  {% for p in a.authors %}
     {% unless all_participants contains p %}
       {% if all_participants != "" %}{% assign all_participants = all_participants | append: "||" %}{% endif %}
       {% assign all_participants = all_participants | append: p %}
@@ -32,7 +41,7 @@ layout: default
 <div class="stats-bar">
   <div class="stat">
     <div class="stat-value">{{ participant_array.size }}</div>
-    <div class="stat-label">Participants</div>
+    <div class="stat-label">Contributors</div>
   </div>
   <div class="stat">
     <div class="stat-value">{{ sessions.size }}</div>
@@ -41,6 +50,10 @@ layout: default
   <div class="stat">
     <div class="stat-value">{{ workshops.size }}</div>
     <div class="stat-label">Workshop{% if workshops.size != 1 %}s{% endif %}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{ artifacts.size }}</div>
+    <div class="stat-label">Artifact{% if artifacts.size != 1 %}s{% endif %}</div>
   </div>
 </div>
 
@@ -71,7 +84,6 @@ layout: default
 <div class="activity-section">
   <div class="section-header">Activity</div>
   <ul class="activity-list">
-    {% comment %} Merge and sort by date — Jekyll can't natively merge collections, so we interleave manually {% endcomment %}
     {% assign all_items = "" %}
     {% for s in sessions %}
       {% assign item_date = s.date | date: "%Y-%m-%d" %}
@@ -80,6 +92,10 @@ layout: default
     {% for w in workshops %}
       {% assign item_date = w.date | date: "%Y-%m-%d" %}
       {% assign all_items = all_items | append: item_date | append: "::workshop::" | append: forloop.index0 | append: "|||" %}
+    {% endfor %}
+    {% for a in artifacts %}
+      {% assign item_date = a.date | date: "%Y-%m-%d" %}
+      {% assign all_items = all_items | append: item_date | append: "::artifact::" | append: forloop.index0 | append: "|||" %}
     {% endfor %}
     {% assign items_array = all_items | split: "|||" | sort | reverse %}
 
@@ -115,6 +131,20 @@ layout: default
                 <span>{{ entry.date | date: "%b %d, %Y" }}</span>
                 <span>{{ entry.duration }} min</span>
                 <span>{{ entry.participants_list.size }} participant{% if entry.participants_list.size != 1 %}s{% endif %}</span>
+              </div>
+            </div>
+          </a>
+        </li>
+      {% elsif item_type == "artifact" %}
+        {% assign entry = artifacts[item_idx] %}
+        <li>
+          <a href="{{ entry.url | relative_url }}" class="activity-card">
+            <span class="activity-type activity-type--artifact">{{ entry.artifact_type | capitalize }}</span>
+            <div class="activity-info">
+              <div class="activity-title">{{ entry.title }}</div>
+              <div class="activity-meta">
+                <span>{{ entry.date | date: "%b %d, %Y" }}</span>
+                <span>{{ entry.authors.size }} author{% if entry.authors.size != 1 %}s{% endif %}</span>
               </div>
             </div>
           </a>

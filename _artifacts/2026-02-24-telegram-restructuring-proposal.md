@@ -1,9 +1,10 @@
 ---
 title: "Telegram Group Restructuring Proposal"
 date: 2026-02-24
-type: workshop
-duration: 0
-participants_list:
+type: artifact
+artifact_type: proposal
+source_url: "https://m4co.notion.site/Telegram-Group-Restructuring-Proposal-31496ae9065580a69dcddf02cd483a45"
+authors:
   - Kristen Pavle
   - Gabriel Chartier
   - Artem Zhiganov

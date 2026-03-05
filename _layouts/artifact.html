@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+<a href="{{ '/' | relative_url }}" class="back-link">All activity</a>
+
+<div class="detail-header">
+  <h1>{{ page.title }}</h1>
+  <div class="detail-meta">
+    <span>{{ page.date | date: "%b %d, %Y" }}</span>
+    <span>{{ page.artifact_type }}</span>
+    {% if page.source_url %}<a href="{{ page.source_url }}" target="_blank" style="color: var(--pink); text-decoration: none; font-weight: 600;">Source</a>{% endif %}
+  </div>
+  {% if page.keywords %}
+  <div class="keyword-list">
+    {% for kw in page.keywords %}
+    <span class="keyword">{{ kw }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% if page.authors %}
+<div class="participants-section" style="margin-bottom: 2rem; margin-top: 0;">
+  <div class="participant-grid">
+    {% for p in page.authors %}
+    <span class="participant-chip">{{ p }}</span>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<div class="workshop-content">
+  {{ content }}
+</div>
