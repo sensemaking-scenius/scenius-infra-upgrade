@@ -1,8 +1,12 @@
 title: Scenius Infra Upgrade
-description: Deliberation archive for the Sensemaking Scenius infrastructure project
+description: A community of practice for a regen, intentional, & meaningful internet
 
 collections:
   sessions:
+    output: true
+    sort_by: date
+    order: reverse
+  workshops:
     output: true
     sort_by: date
     order: reverse
@@ -13,3 +17,8 @@ defaults:
       type: sessions
     values:
       layout: session
+  - scope:
+      path: ""
+      type: workshops
+    values:
+      layout: workshop

@@ -2,12 +2,12 @@
 layout: default
 ---
 
-<a href="{{ '/' | relative_url }}" class="back-link">All sessions</a>
+<a href="{{ '/' | relative_url }}" class="back-link">All activity</a>
 
-<div class="session-header">
+<div class="detail-header">
   <h1>{{ page.title }}</h1>
-  <div class="meta">
-    <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+  <div class="detail-meta">
+    <span>{{ page.date | date: "%b %d, %Y" }}</span>
     <span class="status-{{ page.status }}">{{ page.status }}</span>
     <span>{{ page.participants }} participant{% if page.participants != 1 %}s{% endif %}</span>
   </div>
@@ -33,7 +33,6 @@ layout: default
   var noscript = dashboard.querySelector('noscript');
   if (noscript) noscript.remove();
 
-  // Parse sections from the rendered content
   var sections = [];
   var current = null;
   var nodes = raw.children;
@@ -49,7 +48,6 @@ layout: default
   }
   if (current) sections.push(current);
 
-  // Sections to show as cards (by partial title match)
   var cardSections = [
     'Core Vision',
     'MVP Scope',
@@ -61,7 +59,6 @@ layout: default
     'User Experience Vision'
   ];
 
-  // Sections to skip entirely
   var skipSections = [
     'Participant Responses',
     'Information',
@@ -78,7 +75,6 @@ layout: default
   grid.className = 'card-grid';
 
   sections.forEach(function(s) {
-    // Skip raw response sections
     for (var k = 0; k < skipSections.length; k++) {
       if (s.title.indexOf(skipSections[k]) !== -1) return;
     }
@@ -92,7 +88,6 @@ layout: default
       var card = document.createElement('div');
       card.className = 'dash-card';
 
-      // Clean emoji from title
       var cleanTitle = s.title.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}]/gu, '').trim();
 
       var full = s.title.indexOf('Core Vision') !== -1 ||

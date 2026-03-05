@@ -2,8 +2,21 @@
 layout: default
 ---
 
-{% assign sorted = site.sessions | sort: 'date' | reverse %}
-{% assign active = sorted | where: "status", "active" %}
+{% assign sessions = site.sessions | sort: 'date' | reverse %}
+{% assign workshops = site.workshops | sort: 'date' | reverse %}
+{% assign active = sessions | where: "status", "active" %}
+
+{% comment %} Collect all unique participants {% endcomment %}
+{% assign all_participants = "" %}
+{% for w in workshops %}
+  {% for p in w.participants_list %}
+    {% unless all_participants contains p %}
+      {% if all_participants != "" %}{% assign all_participants = all_participants | append: "||" %}{% endif %}
+      {% assign all_participants = all_participants | append: p %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+{% assign participant_array = all_participants | split: "||" %}
 
 {% if active.size > 0 %}
 <div class="cta-banner">
@@ -16,19 +29,97 @@ layout: default
 </div>
 {% endif %}
 
-{% if sorted.size > 0 %}
-<ul class="session-list">
-  {% for session in sorted %}
-  <a href="{{ session.url | relative_url }}" class="session-card">
-    <div class="title">{{ session.title }}</div>
-    <div class="meta">
-      <span>{{ session.date | date: "%Y-%m-%d" }}</span>
-      <span class="status-{{ session.status }}">{{ session.status }}</span>
-      <span>{{ session.participants }} participant{% if session.participants != 1 %}s{% endif %}</span>
-    </div>
-  </a>
-  {% endfor %}
-</ul>
-{% else %}
-<div class="empty">No sessions synced yet. Run npx harmonica-sync to pull sessions.</div>
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-value">{{ participant_array.size }}</div>
+    <div class="stat-label">Participants</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{ sessions.size }}</div>
+    <div class="stat-label">Session{% if sessions.size != 1 %}s{% endif %}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value">{{ workshops.size }}</div>
+    <div class="stat-label">Workshop{% if workshops.size != 1 %}s{% endif %}</div>
+  </div>
+</div>
+
+<div class="consensus">
+  <div class="consensus-label">Emerging consensus</div>
+  <div class="consensus-text">Build a unified community dashboard that surfaces conversations, knowledge, and participation opportunities across tools — starting with Telegram integration and a shared knowledge graph.</div>
+  <div class="consensus-detail">
+    <ul>
+      <li>Portico for spatial audio/text presence, Knowledge Graph for semantic structure, My Community for daily dashboard entry point</li>
+      <li>Public website as a curated gateway — community data stays gated for members</li>
+      <li>REST API-first architecture connecting all tools into a shared data pipeline</li>
+    </ul>
+  </div>
+</div>
+
+{% if participant_array.size > 0 %}
+<div class="participants-section">
+  <div class="section-header">Contributors</div>
+  <div class="participant-grid">
+    {% for p in participant_array %}
+    <span class="participant-chip">{{ p }}</span>
+    {% endfor %}
+  </div>
+</div>
 {% endif %}
+
+{% comment %} Build combined activity feed {% endcomment %}
+<div style="margin-top: 2.5rem;">
+  <div class="section-header">Activity</div>
+  <ul class="activity-list">
+    {% comment %} Merge and sort by date — Jekyll can't natively merge collections, so we interleave manually {% endcomment %}
+    {% assign all_items = "" %}
+    {% for s in sessions %}
+      {% assign item_date = s.date | date: "%Y-%m-%d" %}
+      {% assign all_items = all_items | append: item_date | append: "::session::" | append: forloop.index0 | append: "|||" %}
+    {% endfor %}
+    {% for w in workshops %}
+      {% assign item_date = w.date | date: "%Y-%m-%d" %}
+      {% assign all_items = all_items | append: item_date | append: "::workshop::" | append: forloop.index0 | append: "|||" %}
+    {% endfor %}
+    {% assign items_array = all_items | split: "|||" | sort | reverse %}
+
+    {% for item in items_array %}
+      {% if item == "" %}{% continue %}{% endif %}
+      {% assign parts = item | split: "::" %}
+      {% assign item_type = parts[1] %}
+      {% assign item_idx = parts[2] | plus: 0 %}
+
+      {% if item_type == "session" %}
+        {% assign entry = sessions[item_idx] %}
+        <li>
+          <a href="{{ entry.url | relative_url }}" class="activity-card">
+            <span class="activity-type activity-type--session">Session</span>
+            <div class="activity-info">
+              <div class="activity-title">{{ entry.title }}</div>
+              <div class="activity-meta">
+                <span>{{ entry.date | date: "%b %d, %Y" }}</span>
+                <span class="status-{{ entry.status }}">{{ entry.status }}</span>
+                <span>{{ entry.participants }} participant{% if entry.participants != 1 %}s{% endif %}</span>
+              </div>
+            </div>
+          </a>
+        </li>
+      {% elsif item_type == "workshop" %}
+        {% assign entry = workshops[item_idx] %}
+        <li>
+          <a href="{{ entry.url | relative_url }}" class="activity-card">
+            <span class="activity-type activity-type--workshop">Workshop</span>
+            <div class="activity-info">
+              <div class="activity-title">{{ entry.title }}</div>
+              <div class="activity-meta">
+                <span>{{ entry.date | date: "%b %d, %Y" }}</span>
+                <span>{{ entry.duration }} min</span>
+                <span>{{ entry.participants_list.size }} participant{% if entry.participants_list.size != 1 %}s{% endif %}</span>
+              </div>
+            </div>
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
