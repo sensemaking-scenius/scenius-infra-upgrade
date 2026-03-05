@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<a href="{{ '/' | relative_url }}" class="back-link">All sessions</a>
+
+<div class="session-header">
+  <h1>{{ page.title }}</h1>
+  <div class="meta">
+    <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+    <span class="status-{{ page.status }}">{{ page.status }}</span>
+    <span>{{ page.participants }} participant{% if page.participants != 1 %}s{% endif %}</span>
+    <span>{{ page.session_id }}</span>
+  </div>
+</div>
+
+<div class="session-content">
+  {{ content }}
+</div>

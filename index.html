@@ -1,0 +1,22 @@
+---
+layout: default
+---
+
+{% assign sorted = site.sessions | sort: 'date' | reverse %}
+
+{% if sorted.size > 0 %}
+<ul class="session-list">
+  {% for session in sorted %}
+  <a href="{{ session.url | relative_url }}" class="session-card">
+    <div class="title">{{ session.title }}</div>
+    <div class="meta">
+      <span>{{ session.date | date: "%Y-%m-%d" }}</span>
+      <span class="status-{{ session.status }}">{{ session.status }}</span>
+      <span>{{ session.participants }} participant{% if session.participants != 1 %}s{% endif %}</span>
+    </div>
+  </a>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="empty">No sessions synced yet. Run npx harmonica-sync to pull sessions.</div>
+{% endif %}

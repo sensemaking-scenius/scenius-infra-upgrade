@@ -5,7 +5,7 @@
     "requireSummary": false
   },
   "output": {
-    "dir": "sessions",
+    "dir": "_sessions",
     "filename": "{{date}}-{{slug}}.md"
   }
 }

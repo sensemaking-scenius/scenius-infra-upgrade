@@ -1,0 +1,15 @@
+title: Scenius Infra Upgrade
+description: Deliberation archive for the Sensemaking Scenius infrastructure project
+
+collections:
+  sessions:
+    output: true
+    sort_by: date
+    order: reverse
+
+defaults:
+  - scope:
+      path: ""
+      type: sessions
+    values:
+      layout: session
