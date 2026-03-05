@@ -1,0 +1,11 @@
+{
+  "sync": {
+    "search": ["Sensemaking Scenius Community Application"],
+    "minParticipants": 1,
+    "requireSummary": false
+  },
+  "output": {
+    "dir": "sessions",
+    "filename": "{{date}}-{{slug}}.md"
+  }
+}
