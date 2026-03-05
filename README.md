@@ -14,9 +14,9 @@ This repo is our shared workspace: a living record of what we've discussed, what
 
 ### Current content
 
-- **[Community Application Brainstorming](https://sensemaking-scenius.github.io/scenius-infra-upgrade/sessions/2026-02-27-sensemaking-scenius-community-application-brainstorming/)** — async Harmonica session on what to build and how tools fit together
-- **[Telegram Group Restructuring Proposal](https://sensemaking-scenius.github.io/scenius-infra-upgrade/artifacts/2026-02-24-telegram-restructuring-proposal/)** — main group + opt-in subgroups + Drip synthesis channel ([Notion source](https://m4co.notion.site/Telegram-Group-Restructuring-Proposal-31496ae9065580a69dcddf02cd483a45))
-- **[Community Platform Integration Workshop](https://sensemaking-scenius.github.io/scenius-infra-upgrade/workshops/2026-03-04-scenius-workshop/)** — Portico, Knowledge Graph, cross-platform integration, public vs private content
+- **[Community Application Brainstorming](https://sensemaking-scenius.github.io/scenius-infra-upgrade/sessions/2026-02-27-sensemaking-scenius-community-application-brainstorming.html)** — async Harmonica session on what to build and how tools fit together
+- **[Telegram Group Restructuring Proposal](https://sensemaking-scenius.github.io/scenius-infra-upgrade/artifacts/2026-02-24-telegram-restructuring-proposal.html)** — main group + opt-in subgroups + Drip synthesis channel ([Notion source](https://m4co.notion.site/Telegram-Group-Restructuring-Proposal-31496ae9065580a69dcddf02cd483a45))
+- **[Community Platform Integration Workshop](https://sensemaking-scenius.github.io/scenius-infra-upgrade/workshops/2026-03-04-scenius-workshop.html)** — Portico, Knowledge Graph, cross-platform integration, public vs private content
 
 ## How it works
 
