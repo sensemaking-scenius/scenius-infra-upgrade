@@ -3,6 +3,18 @@ layout: default
 ---
 
 {% assign sorted = site.sessions | sort: 'date' | reverse %}
+{% assign active = sorted | where: "status", "active" %}
+
+{% if active.size > 0 %}
+<div class="cta-banner">
+  <div class="cta-text">
+    <div class="cta-label">Open session</div>
+    <div class="cta-title">{{ active.first.title }}</div>
+    <div class="cta-desc">{{ active.first.participants }} participant{% if active.first.participants != 1 %}s{% endif %} so far — add your perspective</div>
+  </div>
+  <a href="https://app.harmonica.chat/chat?s={{ active.first.session_id }}" class="cta-button" target="_blank">Participate</a>
+</div>
+{% endif %}
 
 {% if sorted.size > 0 %}
 <ul class="session-list">

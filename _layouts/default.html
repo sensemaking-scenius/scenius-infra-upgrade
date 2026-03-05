@@ -115,6 +115,62 @@
     .status-active { color: var(--accent); }
     .status-completed { color: var(--text-dim); }
 
+    /* CTA banner */
+    .cta-banner {
+      border: 1px solid var(--accent-dim);
+      background: linear-gradient(135deg, rgba(122, 158, 108, 0.08), rgba(122, 158, 108, 0.02));
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .cta-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .cta-title {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-bright);
+      margin-bottom: 0.25rem;
+    }
+
+    .cta-desc {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .cta-button {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.6rem 1.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+
+    .cta-button:hover {
+      background: var(--text-bright);
+    }
+
+    @media (max-width: 560px) {
+      .cta-banner { flex-direction: column; align-items: flex-start; }
+    }
+
     .empty {
       font-family: var(--mono);
       font-size: 0.85rem;
