@@ -8,7 +8,7 @@ Dashboard and archive for the Sensemaking Scenius community — tracking session
 
 Sensemaking Scenius is a community of practice exploring collective intelligence, relational technology, and tools for a more intentional internet. Members are building complementary tools — spatial community platforms, knowledge graphs, community dashboards, synchronized listening rooms — and figuring out how they fit together.
 
-This repo is our shared workspace: a living record of what we've discussed, what we've agreed on, and what we're building next. It combines async [Harmonica](https://harmonica.chat) deliberation sessions with workshop summaries and community artifacts (proposals, specs, etc.).
+This repo is our shared workspace: a living record of what we've discussed, what we've agreed on, and what we're building next. It combines async deliberation sessions with workshop summaries and community artifacts (proposals, specs, etc.).
 
 **Community:** https://scenius.space
 
@@ -22,7 +22,7 @@ This repo is our shared workspace: a living record of what we've discussed, what
 
 Built with Jekyll (GitHub Pages native). Three collections:
 
-- `_sessions/` — auto-synced from [Harmonica](https://harmonica.chat) every 6 hours via GitHub Actions. When someone participates in a session, the dashboard updates automatically with new responses, participant counts, and summaries.
+- `_sessions/` — auto-synced every 6 hours via GitHub Actions using [harmonica-sync](https://github.com/harmonicabot/harmonica-sync). When someone participates in a session, the dashboard updates automatically with new responses, participant counts, and summaries.
 - `_workshops/` — manually added markdown summaries from live calls.
 - `_artifacts/` — proposals, specs, and other community documents.
 
