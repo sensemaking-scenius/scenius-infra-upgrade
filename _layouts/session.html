@@ -10,10 +10,104 @@ layout: default
     <span>{{ page.date | date: "%Y-%m-%d" }}</span>
     <span class="status-{{ page.status }}">{{ page.status }}</span>
     <span>{{ page.participants }} participant{% if page.participants != 1 %}s{% endif %}</span>
-    <span>{{ page.session_id }}</span>
   </div>
 </div>
 
-<div class="session-content">
-  {{ content }}
+<div class="session-dashboard" id="dashboard">
+  <noscript>
+    <div class="session-content">{{ content }}</div>
+  </noscript>
 </div>
+
+<details class="full-transcript">
+  <summary>Full session transcript</summary>
+  <div class="session-content">{{ content }}</div>
+</details>
+
+<script>
+(function() {
+  var raw = document.querySelector('.full-transcript .session-content');
+  if (!raw) return;
+
+  var dashboard = document.getElementById('dashboard');
+  var noscript = dashboard.querySelector('noscript');
+  if (noscript) noscript.remove();
+
+  // Parse sections from the rendered content
+  var sections = [];
+  var current = null;
+  var nodes = raw.children;
+
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    if (el.tagName === 'H2') {
+      if (current) sections.push(current);
+      current = { title: el.textContent.trim(), html: '' };
+    } else if (current) {
+      current.html += el.outerHTML;
+    }
+  }
+  if (current) sections.push(current);
+
+  // Sections to show as cards (by partial title match)
+  var cardSections = [
+    'Core Vision',
+    'MVP Scope',
+    'Division of Labor',
+    'Critical Risks',
+    'Key Insights',
+    'Next Immediate Actions',
+    'Success Criteria',
+    'User Experience Vision'
+  ];
+
+  // Sections to skip entirely
+  var skipSections = [
+    'Participant Responses',
+    'Information',
+    'Coordination',
+    'Structure',
+    'Knowledge',
+    'Key Decisions',
+    'Dependencies',
+    'People/Resources',
+    'Risks:'
+  ];
+
+  var grid = document.createElement('div');
+  grid.className = 'card-grid';
+
+  sections.forEach(function(s) {
+    // Skip raw response sections
+    for (var k = 0; k < skipSections.length; k++) {
+      if (s.title.indexOf(skipSections[k]) !== -1) return;
+    }
+
+    var isCard = false;
+    for (var j = 0; j < cardSections.length; j++) {
+      if (s.title.indexOf(cardSections[j]) !== -1) { isCard = true; break; }
+    }
+
+    if (isCard) {
+      var card = document.createElement('div');
+      card.className = 'dash-card';
+
+      // Clean emoji from title
+      var cleanTitle = s.title.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F900}-\u{1F9FF}]/gu, '').trim();
+
+      var full = s.title.indexOf('Core Vision') !== -1 ||
+                 s.title.indexOf('MVP Scope') !== -1 ||
+                 s.title.indexOf('Division of Labor') !== -1;
+      if (full) card.className += ' dash-card--wide';
+
+      card.innerHTML = '<h3>' + cleanTitle + '</h3>' +
+        '<div class="dash-card-body">' + s.html + '</div>';
+      grid.appendChild(card);
+    }
+  });
+
+  if (grid.children.length > 0) {
+    dashboard.appendChild(grid);
+  }
+})();
+</script>
