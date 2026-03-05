@@ -2,7 +2,8 @@
 
 Dashboard and archive for the Sensemaking Scenius community — tracking sessions, workshops, and emerging consensus around shared infrastructure.
 
-**Live:** https://sensemaking-scenius.github.io/scenius-infra-upgrade/
+<img width="2520" height="1680" alt="image" src="https://github.com/user-attachments/assets/d1e29056-c932-4d3f-a5cc-ee897e2e1796" />
+
 
 ## About
 
