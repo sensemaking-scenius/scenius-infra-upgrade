@@ -16,10 +16,14 @@ This repo is our shared workspace: a living record of what we've discussed, what
 
 Built with Jekyll (GitHub Pages native). Two collections:
 
-- `_sessions/` — synced every 6h by a GitHub Action running `harmonica-sync`
-- `_workshops/` — manually authored markdown with YAML frontmatter
+- `_sessions/` — auto-synced from [Harmonica](https://harmonica.chat) every 6 hours via GitHub Actions. When someone participates in a session, the dashboard updates automatically with new responses, participant counts, and summaries.
+- `_workshops/` — manually added markdown summaries from live calls.
 
-## Sync sessions
+The **consensus block** and **stats** on the main page need manual updates as the project evolves.
+
+## Sync sessions manually
+
+The GitHub Action handles this automatically, but you can also sync locally or trigger manually from the Actions tab.
 
 ```bash
 export HARMONICA_API_KEY=hm_live_...
