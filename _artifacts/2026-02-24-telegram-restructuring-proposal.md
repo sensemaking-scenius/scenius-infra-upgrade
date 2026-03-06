@@ -10,6 +10,7 @@ authors:
   - Artem Zhiganov
   - Alexandre Variengien
   - Jon Bo
+  - Bill Seitz
 keywords:
   - Telegram
   - Community Structure
