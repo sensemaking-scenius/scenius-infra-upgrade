@@ -60,7 +60,7 @@ title, date, type: artifact, artifact_type (proposal|spec|...), source_url, auth
 
 ## Content Guidelines
 
-- The **consensus block** and **stats** on the main page (`index.html`) require manual updates as new content is added.
+- The **consensus block** on the main page (`index.html`) is currently hardcoded and requires manual updates. Planned: auto-generated consensus via `harmonica-sync` synthesis step (HAR-338) — will read all collections and write to `_data/consensus.yml`.
 - Contributors are computed automatically from `participants_list` (workshops) and `authors` (artifacts) — not from sessions.
 - Session content is auto-formatted by `session.html` JS: H2 headings become card titles, certain sections are displayed as dashboard cards (Core Vision, MVP Scope, etc.), others are skipped.
 
