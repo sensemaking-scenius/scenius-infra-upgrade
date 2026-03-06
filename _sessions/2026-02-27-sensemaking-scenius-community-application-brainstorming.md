@@ -24,87 +24,68 @@ The question is how these four tools intersect to serve the Sensemaking Scenius 
 
 ## Summary
 
-# Sensemaking Scenius Community Application — Summary
+# Sensemaking Scenius Community Application — Strategic Summary
 
 ## 🎯 Core Vision
 
-A **unified digital space** where the Sensemaking Scenius community can stay connected, discover what's happening, and participate meaningfully without needing to be present for every conversation. The goal: transform fragmented information across Telegram, calls, and docs into an accessible, living knowledge base with spatial presence.
+**A shared digital space where the Sensemaking Scenius community's knowledge accumulates visibly, participation has a low floor, and members can stay connected without needing to be everywhere at once.**
+
+The fundamental problem being solved: **fragmentation**. Conversations, decisions, and knowledge are scattered across Telegram, Zoom calls, Notion, and individual projects with no unified memory or ambient awareness layer.
 
 ---
 
-## 🔥 Key Problems Being Solved
+## 💡 Key Insights & Breakthroughs
 
-### Information Overload & Fragmentation
-- Valuable conversations, links, and decisions scattered across Telegram, Zoom, Notion, Tldraw
-- No threading in Telegram → important discussions get buried
-- "You have to be there" to know what happened — miss a week, you're lost
-- No way to search or browse what the community has collectively surfaced
+### The Real Problem Isn't Just Information Overload
+It's that **curation has no surface to curate into**. People don't organize knowledge because there's nowhere to organize it that others will see. The technical infrastructure enables the social behavior, not the other way around.
 
-### Coordination Breakdown
-- Ideas proposed but fizzle before execution
-- Unclear what requires group input vs. individual action
-- High activation energy discourages participation
-- New members feel completely disoriented
+### Three-Layer Filtering Architecture
+Instead of trying to solve everything with AI or manual curation:
+1. **Automated baseline**: Extract links, topics, activity (what happened)
+2. **Social signals**: Member reactions, engagement (what matters)  
+3. **Structured synthesis**: Harmonica sessions for decisions (what we think)
 
-### Knowledge & Memory Gap
-- No shared memory that's browsable or buildable-upon
-- Every conversation starts from scratch
-- Projects invisible to each other (Gabriel and Artem only learned about overlaps through live calls)
+**Critical distinction**: Be confident about facts, cautious about meaning. Automate the former, structure the latter with human input.
+
+### The Knowledge Graph as Intelligence Layer, Not Backbone
+The KG doesn't need to be production-ready for MVP. Direct Telegram integration provides the plumbing; the KG adds semantic intelligence later. This prevents the entire project from being blocked by KG hosting/reliability concerns.
+
+### Read-Only Portico Isn't Enough
+Just displaying Telegram in a prettier interface doesn't justify a new tool. The value is **spatial presence + voice + context summaries** together. But without write-back to Telegram, it fragments the community rather than unifying it. Bidirectional sync (or at minimum, voice conversation summaries posted back to Telegram) is essential.
 
 ---
 
-## 🏗️ Technical Architecture
+## 🏗️ MVP Scope (4-6 Weeks)
 
-### The Stack
-**Shared Data Layer (Knowledge Graph Builder)**
-- Python pipeline extracting Telegram → semantic knowledge graph (SIOC ontology)
-- Hosted with REST API endpoints wrapping SPARQL queries
-- Enables any tool to query independently without tight coupling
+### What We're Building
 
-**Portico (Spatial Layer)**
-- SvelteKit + Jazz CRDT + LiveKit proximity voice
-- Rooms mapped to Telegram subgroups
-- Members navigate as energy balls with spatial audio
+**1. Portico with Telegram-Linked Rooms**
+- 3-5 rooms mapped to existing Telegram subgroups (Workshop, General, Projects)
+- Spatial UI with energy ball avatars, proximity voice
+- Recent messages from linked Telegram channels displayed in rooms
+- **Bidirectional sync via Telethon**: messages flow both ways (critical path item)
+- Fallback: read-only + voice conversation summaries posted to Telegram if full sync proves fragile
 
-**My Community (Dashboard Layer)**
-- Chrome extension replacing new tab with community dashboard
-- Preact + Vite
+**2. Daily Channel Summaries**
+- LLM-generated narrative summaries per active channel (3-5 sentences, not keywords)
+- Example quality bar: "Gabriel proposed linking Portico rooms to Telegram subgroups. Jon offered an existing Telethon implementation. Open question: should rooms be fixed or emerge dynamically?"
+- Displayed in Portico room context panels and My Community dashboard
+- Pipeline: scenius-digest → LLM call → REST API
+
+**3. My Community Integration**
+- Chrome extension new tab shows:
+  - Active Portico rooms (who's in them)
+  - Weekly link digest (already working)
+  - Daily channel summaries
 - AT Proto auth with Scenius whitelist
-- Aggregates links, posts, events, activity
+- Entry point: "Open a tab and see what's happening"
 
-**Navidrome Jam (Ambient Presence)**
-- Synchronized music listening
-- Shows "2 people listening right now" — ambient life signal
+**4. Navidrome Jam Presence**
+- Already integrated, shows live listening rooms
+- Provides ambient life signal even during quiet conversation periods
 
----
-
-## 📋 MVP Scope (4-6 Weeks)
-
-### ✅ In Scope
-
-1. **Portico with Telegram-Linked Rooms**
-   - 3-5 rooms mapped to existing Telegram subgroups
-   - Bidirectional sync via Telethon (messages flow both ways)
-   - Spatial UI + proximity voice + text chat
-   - Context panel showing room summaries
-
-2. **Daily Channel Summaries**
-   - LLM-generated narrative summaries per active channel
-   - 3-5 sentence context, not just keywords
-   - Example: "Gabriel proposed linking Portico rooms to Telegram subgroups. Jon offered Telethon implementation. Open question: fixed vs. dynamic rooms?"
-   - Pipeline: scenius-digest → LLM call → API endpoint
-
-3. **My Community Integration**
-   - New tab shows: active Portico rooms (who's in them), weekly link digest, daily summaries
-   - AT Proto auth with Scenius whitelist
-   - "Open a tab and see what's happening" experience
-
-4. **Navidrome Jam Presence**
-   - Already working — shows live jam rooms in feed
-
-### ❌ Out of Scope (For Now)
-
-- Full Knowledge Graph integration (semantic layer comes later)
+### What's Explicitly Out of Scope
+- Full Knowledge Graph Builder integration
 - Emergent/dynamic rooms (start with fixed rooms)
 - Cross-community interoperability via SIOC
 - Member reaction signals on links (social filtering layer)
@@ -113,105 +94,12 @@ A **unified digital space** where the Sensemaking Scenius community can stay con
 
 ---
 
-## 🎨 User Experience Vision
+## 🔧 Technical Architecture
 
-> "You open your browser and your new tab shows you Sensemaking Scenius — not as a chat app or a feed, but as a **living map** of what the community is thinking about right now. There are a few active rooms where people are talking (one about decentralized identity, one about an upcoming event), a digest of the most interesting links and ideas from the past week surfaced by member engagement, and a quiet music stream you can join if you want to feel connected while you work. You click into the decentralized identity room — you can see a summary of what's been discussed, browse the relevant links, and either drop into voice with the two people already there or leave an async message. You don't need to have been in every Telegram thread to know what's happening. The community's knowledge is accumulating visibly, and your participation — even just a thumbs up on a link — makes it richer."
+### Shared Data Layer
+**Knowledge Graph Builder** (when ready) exposes REST API endpoints backed by SPARQL queries. Any tool can query independently rather than tight coupling. Uses SIOC ontology for future cross-community interoperability.
 
----
-
-## 🔄 Filtering & Intelligence Strategy
-
-### Three-Layer Approach
-
-1. **Automated Baseline**
-   - Topic extraction, link deduplication, activity detection
-   - Confident about *what happened* (facts, links, activity)
-   - Knowledge Graph maps topics and connections, not conclusions
-
-2. **Social Filtering**
-   - Member reactions as signals (if 3 people react to a link, it's signal)
-   - Recency decay for unengaged content
-   - Human attention as primary filter (Hacker News model)
-
-3. **Structured Synthesis**
-   - Harmonica sessions for things needing actual synthesis
-   - Event-driven, not scheduled (2-3 per month)
-   - Participant-validated outputs become part of shared memory
-   - Cautious about *what it means* (synthesis, decisions)
-
-### Key Insight
-**Curation shouldn't be a role or task — it should be a byproduct of normal participation.** If sharing a link in Telegram automatically surfaces it in the dashboard, that's zero-effort curation.
-
----
-
-## ⚠️ Critical Risks & Mitigations
-
-### 1. Telethon Bridge Reliability
-**Risk:** Bidirectional sync is the technical centerpiece. If messages get lost/duplicated, trust drops immediately.
-
-**Mitigation:** 
-- Jon has working implementation for parts of this
-- Fallback: read-only for MVP if bidirectional proves fragile
-- Minimum: basic write-back (text messages from Portico → Telegram bot) within 2 weeks post-launch
-- Even without full sync, post summaries to Telegram when voice conversations happen
-
-### 2. Summary Quality
-**Risk:** Generic or inaccurate LLM summaries → people stop reading them
-
-**Mitigation:**
-- Start with good prompt, manually review first week of outputs
-- Bar: 70% context without reading thread, not 100% replacement
-- Longer time horizons during quiet periods (show "recent" not "this week")
-
-### 3. Knowledge Graph Dependency
-**Risk:** KG on free cloud server could fail
-
-**Mitigation:**
-- KG is intelligence layer, not plumbing
-- Fallback: My Community digest API + direct Telegram integration work without KG
-- Jon's compute cluster as backup
-- Basic NLP topic extraction sufficient for MVP
-
-### 4. Scope Creep
-**Risk:** Getting carried away with emergent rooms, full KG integration, cross-community features
-
-**Mitigation:**
-- Fixed rooms, daily summaries, dashboard only
-- If either person starts building KG integration in week 3 → red flag
-- If timeline slips: drop LLM summarization, ship with raw activity feeds
-
-### 5. Community Expectations
-**Risk:** Announce too early → people try half-built tool → bad experience → don't return
-
-**Mitigation:**
-- Brief async updates in Workshop Telegram every 2 weeks (screenshot + progress note)
-- Soft launch with 3-4 testers first (Jon, Kristen suggested)
-- Don't go dark for 6 weeks then big reveal
-- Show messy progress along the way
-
----
-
-## 👥 Division of Labor
-
-### Gabriel Owns
-- Portico (rooms, spatial UI, voice, Jazz CRDT sync)
-- Telethon bridge (Telegram messages in Portico + write-back)
-- Push repo to GitHub
-
-### Artem Owns
-- LLM summarization pipeline (scenius-digest + Claude/OpenAI → REST endpoint)
-- My Community integration (dashboard, AT Proto auth, whitelist)
-- Maintain scenius-digest API and Navidrome Jam presence
-
-### Shared
-- **Week 1:** Agree on API contract (both build against it)
-- **Week 2:** Spike integration with real data
-- **Weeks 3-4:** Build in parallel
-- **Week 5:** Integration + testing with 2-3 community members
-- **Week 6:** Launch to full Scenius group
-
-### Key Dependency
-**API Contract (Week 0):**
+### API Contract (Must Define Week 0)
 ```
 GET /channels/{id}/summary
 Returns: {
@@ -224,91 +112,203 @@ Returns: {
 }
 ```
 
+### Auth Decision Needed
+- My Community uses AT Proto whitelist
+- Does Portico share this auth or use separate login?
+- Decision: Accept two logins for MVP, unify later OR share auth layer now
+
+### Integration Points
+- **Portico ↔ Telegram**: Telethon bridge (Jon has working implementation)
+- **My Community ↔ Portico**: Shared summary API + room presence data
+- **scenius-digest ↔ Everything**: Base data extraction layer
+
 ---
 
-## 🤝 People & Resources
+## 👥 Division of Labor
 
-### Involve Early
-- **Jon** — Telethon auth implementation + compute cluster access (week 1 for bridge spike)
-- **Kristen** — Early tester representing less technical perspective
+### Gabriel Owns
+- Portico rooms (spatial UI, voice, Jazz CRDT sync)
+- Telethon bridge (critical path)
+- Push repo to GitHub (action item)
 
-### Don't Involve Yet
-- Wait until something's working — feedback on broken prototype worse than no feedback
-- Onboarding third developer mid-build costs more time than it saves
+### Artem Owns
+- LLM summarization pipeline (scenius-digest + Claude/OpenAI → REST endpoint)
+- My Community integration (dashboard, AT Proto auth, whitelist)
+- Maintain scenius-digest API and Navidrome Jam feed
+
+### Shared Responsibilities
+- Week 1: Agree on API contract
+- Week 2: Spike integration with real data
+- Weeks 3-4: Build in parallel
+- Week 5: Integration + testing with 2-3 community members
+- Week 6: Launch to full Scenius group
+
+### People to Involve
+- **Jon**: Telethon auth implementation, compute cluster access, early tester (Week 1)
+- **Kristen**: Early tester for non-technical perspective (Week 5)
+- **Don't involve more people until something works** — feedback on broken prototypes is counterproductive
+
+---
+
+## ⚠️ Critical Risks & Mitigations
+
+### 1. Telethon Bridge Complexity (HIGHEST RISK)
+**Risk**: Telegram API auth is finicky. Message sync could be unreliable, causing lost/duplicated messages and destroying trust.
+
+**Mitigation**: 
+- Jon's existing implementation reduces risk
+- If bidirectional proves too fragile: fall back to read-only + bot-posted voice summaries
+- If blocked >1 week: use Telegram bot for read-only room feeds
+- **Must have at least basic write-back (text messages via bot) within 2 weeks post-launch**
+
+### 2. Summary Quality
+**Risk**: LLM summaries are generic/inaccurate, people stop reading them.
+
+**Mitigation**:
+- Start with strong prompt
+- Manually review first week of outputs
+- Iterate before running unsupervised
+- Quality bar: 70% context from summary, scan key messages for rest
+
+### 3. Scope Creep
+**Risk**: Building emergent rooms, KG integration, cross-community features during MVP.
+
+**Mitigation**: 
+- Fixed rooms only
+- Daily summaries only
+- Dashboard only
+- If either person starts KG integration in Week 3 → red flag
+
+### 4. Community Expectations
+**Risk**: Announce too early → people try half-built tool → bad experience → don't return.
+
+**Mitigation**:
+- Brief async updates in Workshop Telegram every 2 weeks (screenshot + short message)
+- Show messy progress, don't go dark for 6 weeks
+- Soft launch with 3-4 testers first
+- Full group invite only when solid
+
+### 5. Timeline Slippage
+**Risk**: One component blocks the other.
+
+**Mitigation**:
+- Components aren't blocked if API contract defined Week 1
+- Spike integration Week 2 with dummy data catches misalignment early
+- If timeline slips: **drop LLM summaries from MVP**, ship Portico + My Community with raw feeds
+- Don't add developers — scope reduction is faster than onboarding
+
+### 6. Quiet Weeks Problem
+**Risk**: Dashboard shows "0 active rooms, 1 link" → communicates stagnation.
+
+**Mitigation**:
+- Longer time horizons: show "recent" with rolling window, not "this week"
+- Navidrome Jam shows presence even without substantive discussion
+- Avoid vanity counters (don't show "3 messages this week")
+- Honest feedback: if dashboard feels empty, maybe community needs that signal
+
+---
+
+## 📊 Success Criteria
+
+### Technical Success
+- Portico rooms display Telegram messages reliably
+- Messages sent from Portico appear in Telegram (or voice summaries do)
+- Daily summaries provide 70%+ context without reading full threads
+- My Community dashboard loads active rooms + summaries on new tab
+- 3-4 testers can navigate the system without explanation
+
+### Social Success
+**The real test**: After 3 months, do members other than Gabriel and Artem create rooms and respond to suggestions without prompting?
+
+If it's still just the two builders maintaining everything, we've built infrastructure, not a community tool.
+
+### User Experience Success
+A member opens their browser. Their new tab shows Sensemaking Scenius — not as a chat app, but as a **living map of what the community is thinking about right now**. They see:
+- A few active rooms with people in them
+- A digest of interesting links from the past week
+- A quiet music stream they can join
+- Room summaries that orient them without reading 40 messages
+
+They click into a room, see what's been discussed, and either join voice or leave an async message. Their participation — even just a thumbs up — makes the shared memory richer. They come back because every time they open that tab, there's something new to learn or someone to connect with.
+
+---
+
+## 🚀 Next Actions
+
+### Week 0 (Before Building Starts)
+1. **Define API contract** (Gabriel + Artem)
+2. **Decide auth model** (shared vs. separate)
+3. **Pick 3-5 Telegram channels** to link as rooms (based on actual activity)
+4. **Gabriel: Push Portico repo to GitHub**
+
+### Week 1
+- Implement API contract on both sides
+- Jon: Integrate Telethon auth implementation
+- First coordination update in Workshop Telegram
+
+### Week 2
+- Spike integration with real data (even if UI is rough)
+- Iterate on LLM summary prompts based on actual channel data
+- Identify any misaligned assumptions early
 
 ### Resources Needed
-- **LLM API costs:** $1-2/month (Claude Haiku or GPT-4o-mini for 3-5 channels daily)
-- **Hosting:** Gabriel's free server for KG (later), Jon's cluster as backup, My Community + scenius-digest on Vercel, Portico needs Railway or Jon's cluster
-- **Coordination channel:** Existing Scenius Workshop Telegram group
+- LLM API costs: ~$1-2/month (Claude Haiku or GPT-4o-mini)
+- Hosting: Gabriel's free server + Jon's cluster as backup; My Community on Vercel; Portico needs Railway or Jon's cluster
+- Shared coordination channel: existing Scenius Workshop Telegram group
 
 ---
 
-## 🎯 Success Criteria
+## 🎯 Strategic Alignment with Community Needs
 
-### Technical
-- Portico rooms show Telegram messages with <5 second latency
-- Daily summaries provide 70% context without reading full thread
-- Dashboard loads in <2 seconds with current activity visible
+### Addresses Core Pain Points
 
-### Social
-- After 3 months, members other than Gabriel/Artem create rooms and respond to suggestions unprompted
-- Members reference "I saw in the summary..." in conversations
-- Lurkers start reacting to links (any signal above zero)
+**Information & Communication**
+- ✅ Summaries provide high-level view without reading everything
+- ✅ Spatial rooms + context panels make relevant info discoverable
+- ✅ Link digest surfaces signal from noise
 
-### The Real Test
-**Can someone who missed a week open the dashboard and meaningfully participate in an ongoing conversation within 5 minutes?**
+**Coordination & Decision-Making**
+- ✅ Harmonica session outputs become visible artifacts in shared memory
+- ✅ Lower activation energy: see what's happening from new tab, join with one click
+- ⚠️ Doesn't directly solve accountability/follow-through (future iteration)
 
----
+**Structure & Roles**
+- ⚠️ Doesn't create formal processes (out of scope)
+- ✅ Makes activity visible so members can self-organize around what's happening
 
-## 🔮 Future Vision (Post-MVP)
+**Knowledge & Memory**
+- ✅ Shared memory accumulates visibly
+- ✅ Links and discussions connected by context, not just chronology
+- ✅ Queryable via KG (future), browsable via rooms and summaries (MVP)
 
-### Emergent Rooms
-- Knowledge Graph surfaces recurring cross-community themes
-- "Here's what people are discussing most frequently, maybe you should create a room about it"
-- Hybrid: fixed rooms for structure + dynamic rooms for emerging topics
-- For community size (15-20), manual creation fine: "Gabriel or Artem notice recurring theme and create room"
-
-### Cross-Community Interoperability
-- SIOC ontology enables other communities (Open Civics, Metagov via Slack bots) to become interoperable
-- Cross-community collaboration without merging codebases
-
-### Enhanced Intelligence
-- Full Knowledge Graph with semantic connections
-- Historical context informing summaries
-- Topic clustering across time periods
+### Aligns with Telegram Restructuring Proposal
+- Main room → General Chat
+- Interest subgroups → Portico rooms
+- Sensemaking Drip → Dashboard digest feed
+- Rooms provide digital spaces to hang out beyond just reading messages
 
 ---
 
-## 💡 Key Insights
+## 💭 Open Questions
 
-1. **The social will exists** — people reference past conversations all the time ("remember when we discussed X?"). They just can't find them. This is primarily a technical problem.
-
-2. **Participation has different cadences** — automated runs continuously, social signals accumulate passively, structured sessions happen when needed. A member who never reacts but shows up for one Harmonica session/month is still contributing.
-
-3. **For a 15-20 person community, any signal above zero is massive improvement** over current state. Don't over-engineer representative sampling.
-
-4. **The distinction matters:** Be confident about what happened (facts, links, activity) and cautious about what it means (synthesis, decisions). Former can be automated, latter needs human structure.
-
-5. **Quiet dashboard might be honest feedback** — could prompt someone to start a conversation. Worst outcome isn't "map looks quiet," it's "map looks busy with artificial content nobody cares about."
+1. **Auth model**: Shared AT Proto across both tools or accept two logins for MVP?
+2. **Which specific 3-5 Telegram channels** become rooms? (Needs community input)
+3. **Summary cadence**: Daily per channel, or adaptive based on activity?
+4. **Voice conversation summaries**: Auto-generated or manually posted by participants?
 
 ---
 
-## 📅 Next Immediate Actions
+## 🌟 Long-Term Vision (Post-MVP)
 
-1. **Week 0 Decisions:**
-   - Finalize API contract for summary endpoint
-   - Decide auth model (shared AT Proto or accept two logins)
-   - Pick 3-5 Telegram channels to link as rooms
+- Knowledge Graph Builder as full intelligence layer
+- Emergent rooms based on cross-cutting themes
+- Member reaction signals for social filtering
+- Cross-community interoperability via SIOC ontology
+- Public website as gateway for new members
+- Mobile-optimized experience
+- Structured Harmonica sessions (2-3/month) feeding directly into shared memory
 
-2. **Week 1:**
-   - Gabriel: Push Portico to GitHub, start Telethon bridge spike with Jon
-   - Artem: Build summarization pipeline against agreed API contract
-   - Both: Test spike integration with dummy data
-
-3. **Communication:**
-   - Post brief update in Workshop Telegram showing progress
-   - Recruit Jon for Telethon bridge work
-   - Identify 2-3 week 5 testers (Kristen suggested)
+**The key insight**: Build the minimum surface where knowledge can accumulate, then let the community's existing social behaviors fill it in. The tool enables curation as a byproduct of normal participation, not as unpaid labor.
 
 ## Participant Responses
 
@@ -687,6 +687,11 @@ Returns: {
    if it's not ready, the gap between expectations and reality is worse than if people had seen the messy progress along the way.
 
 ### Participant 2
+
+> User shared the following context:
+
+
+### Participant 3
 
 > User shared the following context:
 
