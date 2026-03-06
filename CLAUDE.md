@@ -55,8 +55,12 @@ title, date, type: workshop, duration (minutes), participants_list[], keywords[]
 
 **Artifacts** (manual):
 ```yaml
-title, date, type: artifact, artifact_type (proposal|spec|...), source_url, authors[], keywords[]
+title, date, type: artifact, artifact_type (proposal|whiteboard|spec|...), source_url, authors[], keywords[]
 ```
+
+## Project Docs
+
+`docs/plans/` contains facilitation audits and session response analyses. These are internal research docs, not published to the site.
 
 ## Content Guidelines
 
