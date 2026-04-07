@@ -1,6 +1,7 @@
 {
   "sync": {
-    "search": ["Sensemaking Scenius Community Application"],
+    "sessionIds": ["hst_206730127f33"],
+    "search": [],
     "minParticipants": 1,
     "requireSummary": false
   },
